@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Redis.model.Order;
 import com.example.Redis.model.Product;
+import com.example.Redis.reflection.TestReflection;
 import com.example.Redis.service.ProductService;
 
 @RestController
@@ -18,7 +19,13 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
+    @Autowired
+    TestReflection testReflection;
 
+    @GetMapping("/reflection")
+    public void testReflection() throws Exception {
+        testReflection.testReflection();;
+    }
 
     @PostMapping("/")
     public Product addProduct(@RequestBody Product product){
