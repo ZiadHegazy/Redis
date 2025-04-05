@@ -1,0 +1,49 @@
+
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - spring.datasource.url=jdbc:postgresql://postgres:5432/testcache
+      - spring.redis.host=host.docker.internal
+      - spring.redis.port=6379
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=testcache
+
+  redis:
+    image: redis
+    container_name: redis-server
+    restart: always
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--bind", "0.0.0.0", "--protected-mode", "no"]
+    networks:
+      - redis-network
+
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    container_name: redisinsight
+    restart: always
+    ports:
+      - "5540:5540"
+    networks:
+      - redis-network
+
+networks:
+  redis-network:
+    driver: bridge
