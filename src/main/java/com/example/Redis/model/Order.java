@@ -21,7 +21,6 @@ public class Order {
     public Order() {
     }
     public Order(double totalPrice) {
-        this.id = id;
         this.totalPrice = totalPrice;
     }
     public int getId() {
