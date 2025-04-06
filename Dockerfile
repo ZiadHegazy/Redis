@@ -8,7 +8,7 @@
 
 # ENTRYPOINT ["java", "-jar", "/target/app.jar"]
 
-FROM maven:3-openjdk-17 AS build
+FROM maven:3-eclipse-temurin-24-alpine⁠ AS build
 
 RUN mkdir /app  
 
@@ -18,7 +18,7 @@ COPY . .
 
 RUN mvn clean install -DskipTests
 
-FROM openjdk:17
+FROM openjdk:25-ea-4-jdk-oraclelinux9
 
 WORKDIR /app
 
