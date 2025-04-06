@@ -8,7 +8,7 @@
 
 # ENTRYPOINT ["java", "-jar", "/target/app.jar"]
 
-FROM maven:3-eclipse-temurin-24-alpine⁠ AS build
+FROM maven:3.9.9-amazoncorretto-24 AS build
 
 RUN mkdir /app  
 
